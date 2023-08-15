@@ -5,13 +5,29 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import MainLayout from './Layout/MainLayout';
+import AddNew from './Pages/AddNew/AddNew';
+
+
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/addnew",
+        element: <AddNew></AddNew>
+      },
+    ]
   },
 ]);
+
+
+
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
