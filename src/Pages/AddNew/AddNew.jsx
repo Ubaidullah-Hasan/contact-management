@@ -1,23 +1,83 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2'
+
 
 
 const AddNew = () => {
+    const imgToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
+    const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imgToken}`;
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        // console.log(data)
+
+        const formData = new FormData();
+        formData.append("image", data.file[0]);
+
+        fetch(imageHostingURL, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(imgResponse => {
+                console.log(imgResponse)
+                if (imgResponse.success) {
+                    const imgURL = imgResponse.data.display_url;
+                    console.log(imgURL);
+                    const info = {
+                        name: data.firstName + " " + data.lastName,
+                        email: data.email,
+                        phone: data.number,
+                        category: data.category,
+                        image: imgURL,
+                    }
+                    console.log(info)
+                    fetch("http://localhost:4000/contacts", {
+                        method: "POST",
+                        headers: {
+                            "content-type": "application/json",
+                        },
+                        body: JSON.stringify(info),
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            console.log(data)
+                            if (data.insertedId){
+                                reset();
+                                Swal.fire(
+                                    'Good job!',
+                                    'New Contact Added!',
+                                    'success'
+                                )
+                            }
+                            
+                        }).catch(() => {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Do you want to continue',
+                                icon: 'error',
+                            })
+                        })
+                }
+            })
+
+    };
     console.log(errors);
+
+
 
     return (
         <div className='bg-gray-600 flex items-center justify-center h-screen'>
             <form onSubmit={handleSubmit(onSubmit)} className="w-[80%] mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-                <div className='flex mb-6 gap-8'> 
+                <div className='flex mb-6 gap-8'>
                     <div className='w-full'>
                         <label htmlFor="first-name" className="block font-medium text-gray-700">First Name</label>
                         <input
                             type="text"
                             id="first-name"
-                            {...register("First name", { required: true, maxLength: 80 })}
+                            {...register("firstName", { required: true, maxLength: 80 })}
                             className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                         />
                     </div>
@@ -26,12 +86,11 @@ const AddNew = () => {
                         <input
                             type="text"
                             id="last-name"
-                            {...register("Last name", { required: true, maxLength: 100 })}
+                            {...register("lastName", { maxLength: 100 })}
                             className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                         />
                     </div>
                 </div>
-
 
                 <div className='mb-6 flex gap-8'>
                     <div className="w-full">
@@ -39,7 +98,7 @@ const AddNew = () => {
                         <input
                             type="text"
                             id="email"
-                            {...register("Email", { required: true, pattern: /^\S+@\S+$/i })}
+                            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                             className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                         />
                     </div>
@@ -48,20 +107,34 @@ const AddNew = () => {
                         <input
                             type="tel"
                             id="mobile-number"
-                            {...register("Mobile number", { required: true, minLength: 6, maxLength: 12 })}
+                            {...register("number", { required: true, minLength: 6, maxLength: 12 })}
                             className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
                         />
                     </div>
                 </div>
 
-                <div className="mb-4">
-                    <label htmlFor="file-upload" className="block font-medium text-gray-700">Upload Image</label>
-                    <input
-                        type="file"
-                        id="file-upload"
-                        {...register("file")}
-                        className="file-input file-input-bordered w-full mt-2" />
+
+
+                <div className='flex mb-6 gap-8'>
+                    <div className='w-full'>
+                        <label htmlFor="category-name" className="block font-medium text-gray-700">Category</label>
+                        <input
+                            type="text"
+                            id="category-name"
+                            {...register("category", { required: true, maxLength: 80 })}
+                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                        />
+                    </div>
+                    <div className="w-full">
+                        <label htmlFor="file-upload" className="block font-medium text-gray-700">Upload Image</label>
+                        <input
+                            type="file"
+                            id="file-upload"
+                            {...register("file", { required: true })}
+                            className="file-input file-input-bordered w-full mt-2" />
+                    </div>
                 </div>
+                
 
                 <button
                     type="submit"
