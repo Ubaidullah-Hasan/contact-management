@@ -13,6 +13,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
+import ContactList from './Pages/ContactList/ContactList';
 
 const queryClient = new QueryClient()
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/action",
         element: <Action></Action>
+      },
+      {
+        path: "/contactList",
+        element: <ContactList></ContactList>
       }
     ]
   },

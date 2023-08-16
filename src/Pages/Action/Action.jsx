@@ -21,6 +21,7 @@ const Action = () => {
                 contacts.map(contact => <ContactCard
                     key={ contact._id}
                     contact={contact}
+                    refetch={refetch}
                 >
                 </ContactCard>)
             }

@@ -4,13 +4,23 @@ import { FaUserEdit } from 'react-icons/fa';
 import UpdateModal from './UpdateModal';
 
 
-const ContactCard = ({ contact}) => {
+const ContactCard = ({ contact, refetch }) => {
     const [modal, setModal] = useState(false);
     const { image, name } = contact;
     // console.log(contact)
 
     const handleDelete = (item) => {
-        console.log(item?.phone)
+        console.log(item?._id)
+        fetch(`http://localhost:4000/contacts/${item?._id}`, {
+            method: "DELETE",
+        })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            if (data.deletedCount){
+                refetch();
+            }
+        })
     }
 
     return (

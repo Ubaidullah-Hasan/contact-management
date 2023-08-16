@@ -46,7 +46,7 @@ const UpdateModal = ({ setModal, modal, contact }) => {
         <div className='overflow-hidden'>
             {
                 modal &&
-                <div className='absolute z-10 top-0 left-0 modal-bg w-full h-screen bg-black/80'>
+                <div className='fixed z-10 top-0 left-0 modal-bg w-full h-screen bg-black/80'>
 
                 </div>
             }
@@ -55,7 +55,7 @@ const UpdateModal = ({ setModal, modal, contact }) => {
                 modal
                 &&
                 <div className='transition-all duration-500'>
-                    <div className='absolute cus-modal z-20'>
+                    <div className='cus-modal z-20'>
                         <form onSubmit={handleSubmit(onSubmit)} className="relative text-left w-full mx-auto p-6 bg-gray-100 text-black rounded-lg shadow-md">
                             <AiOutlineCloseCircle onClick={() => setModal(false)} size={30} className='text-black absolute right-7 top-6 cursor-pointer' />
                             <div className='flex mt-7 mb-6 gap-8'>

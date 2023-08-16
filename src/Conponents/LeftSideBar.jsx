@@ -22,7 +22,7 @@ const LeftSideBar = () => {
     
 
     return (
-        <div className='bg-gray-800 min-h-screen py-6 px-4 text-white'>
+        <div className='w-80 bg-gray-800 fixed h-full py-6 px-4 text-white'>
 
             {/* logo */}
             <div className='mb-8 '>
