@@ -1,32 +1,34 @@
 import React from 'react';
 
-const TableRow = () => {
+const TableRow = ({ contact }) => {
+    const { phone, _id, name, email, image, category } = contact;
+    
     return (
         <tr>
             <td>
                 <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">
-                        <img src="/tailwind-css-component-profile-2@56w.png" alt="Avatar Tailwind CSS Component" />
+                        <img src={image} alt="photo" />
                     </div>
                 </div>
             </td>
 
             <td>
                 <div>
-                    <div className="font-bold">Hart Hagerty</div>
+                    <div className="font-bold">{name}</div>
                     <div className="text-sm opacity-50">United States</div>
                 </div>
 
             </td>
             <td>
-                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                <span className="badge badge-ghost badge-sm uppercase">{category}</span>
             </td>
-            <th>
-                <button className="btn btn-ghost btn-xs">Phone</button>
-            </th>
-            <th>
-                <button className="btn btn-ghost btn-xs">Email</button>
-            </th>
+            <td>
+                <button className="">{phone}</button>
+            </td>
+            <td>
+                <button className="">{email}</button>
+            </td>
         </tr>
     );
 };
