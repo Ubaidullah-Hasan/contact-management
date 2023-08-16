@@ -1,9 +1,29 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import ContactCard from './ContactCard';
 
 const Action = () => {
+
+    const { isLoading, refetch, data: contacts = [] } = useQuery({
+        queryKey: ['carts'],
+        queryFn: async () => {
+            const response = await fetch(`http://localhost:4000/contacts`);
+            const data = await response.json();
+            return data;
+        },
+    });
+
+    // console.log(contacts);
+
+
     return (
-        <div>
-            
+        <div className={`grid grid-cols-3 gap-5 w-full lg:px-3 mx-auto relative `}>
+            {
+                contacts.map(contact => <ContactCard
+                    key={ contact._id}
+                    contact={contact}
+                >
+                </ContactCard>)
+            }
         </div>
     );
 };

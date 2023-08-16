@@ -7,6 +7,16 @@ import {
 } from "react-router-dom";
 import MainLayout from './Layout/MainLayout';
 import AddNew from './Pages/AddNew/AddNew';
+import Action from './Pages/Action/Action';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
+
 
 
 
@@ -21,6 +31,10 @@ const router = createBrowserRouter([
         path: "/addnew",
         element: <AddNew></AddNew>
       },
+      {
+        path: "/action",
+        element: <Action></Action>
+      }
     ]
   },
 ]);
@@ -32,6 +46,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 )

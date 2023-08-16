@@ -1,0 +1,13 @@
+.modal-bg{
+    filter: blur(5px);
+}
+
+.cus-modal{
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    /* transform: translate(190px, 100px); */
+    width: 600px;
+    transform: translate(28%, 50%);
+}

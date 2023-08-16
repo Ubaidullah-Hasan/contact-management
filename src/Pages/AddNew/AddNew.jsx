@@ -15,6 +15,7 @@ const AddNew = () => {
 
         const formData = new FormData();
         formData.append("image", data.file[0]);
+        console.log(formData, Boolean(formData));
 
         fetch(imageHostingURL, {
             method: 'POST',
@@ -44,7 +45,7 @@ const AddNew = () => {
                         .then((res) => res.json())
                         .then((data) => {
                             console.log(data)
-                            if (data.insertedId){
+                            if (data.insertedId) {
                                 reset();
                                 Swal.fire(
                                     'Good job!',
@@ -52,7 +53,7 @@ const AddNew = () => {
                                     'success'
                                 )
                             }
-                            
+
                         }).catch(() => {
                             Swal.fire({
                                 title: 'Error!',
@@ -61,6 +62,7 @@ const AddNew = () => {
                             })
                         })
                 }
+
             })
 
     };
@@ -78,7 +80,7 @@ const AddNew = () => {
                             type="text"
                             id="first-name"
                             {...register("firstName", { required: true, maxLength: 80 })}
-                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
                         />
                     </div>
                     <div className='w-full'>
@@ -87,7 +89,7 @@ const AddNew = () => {
                             type="text"
                             id="last-name"
                             {...register("lastName", { maxLength: 100 })}
-                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500`}
                         />
                     </div>
                 </div>
@@ -99,7 +101,7 @@ const AddNew = () => {
                             type="text"
                             id="email"
                             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
-                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                         />
                     </div>
                     <div className="w-full">
@@ -108,7 +110,7 @@ const AddNew = () => {
                             type="tel"
                             id="mobile-number"
                             {...register("number", { required: true, minLength: 6, maxLength: 12 })}
-                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.number ? 'border-red-500' : ''}`}
                         />
                     </div>
                 </div>
@@ -122,19 +124,20 @@ const AddNew = () => {
                             type="text"
                             id="category-name"
                             {...register("category", { required: true, maxLength: 80 })}
-                            className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.category ? 'border-red-500' : ''}`}
                         />
                     </div>
                     <div className="w-full">
-                        <label htmlFor="file-upload" className="block font-medium text-gray-700">Upload Image</label>
+                        <label htmlFor="file-upload" className="block font-medium text-gray-700">Add Picture</label>
                         <input
                             type="file"
                             id="file-upload"
                             {...register("file", { required: true })}
-                            className="file-input file-input-bordered w-full mt-2" />
+                            className={`file-input h-[44px] file-input-bordered w-full mt-2 py-0 ${errors.file ? 'border-red-500' : ''}`} />
+                        {errors.file && <p className="text-red-500 text-sm mt-1">Please choose a picture.</p>}
                     </div>
                 </div>
-                
+
 
                 <button
                     type="submit"
