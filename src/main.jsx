@@ -14,6 +14,8 @@ import {
   useQuery,
 } from '@tanstack/react-query'
 import ContactList from './Pages/ContactList/ContactList';
+import SearchPage from './Pages/SearchPage/SearchPage';
+import Home from './Pages/Home/Home';
 
 const queryClient = new QueryClient()
 
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
     element: <MainLayout></MainLayout>,
     children: [
       {
+        path: "/",
+        element: <Home></Home>
+      },
+      {
         path: "/addnew",
         element: <AddNew></AddNew>
       },
@@ -39,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/contactList",
         element: <ContactList></ContactList>
+      },
+      {
+        path: "contacts/:name",
+        element: <SearchPage></SearchPage>
       }
     ]
   },

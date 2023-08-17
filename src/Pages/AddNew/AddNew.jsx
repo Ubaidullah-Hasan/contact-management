@@ -119,7 +119,7 @@ const AddNew = () => {
 
                 <div className='flex mb-6 gap-8'>
                     <div className='w-full'>
-                        <label htmlFor="category-name" className="block font-medium text-gray-700">Category</label>
+                        <label htmlFor="category-name" className="block font-medium text-gray-700">Group</label>
                         <input
                             type="text"
                             id="category-name"
@@ -141,9 +141,9 @@ const AddNew = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-2 px-4 mt-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+                    className="font-bold uppercase w-full py-2 px-4 mt-6 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
                 >
-                    Submit
+                    Add Contact
                 </button>
             </form>
 

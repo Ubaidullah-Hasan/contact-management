@@ -16,7 +16,6 @@ const TableRow = ({ contact }) => {
             <td>
                 <div>
                     <div className="font-bold">{name}</div>
-                    <div className="text-sm opacity-50">United States</div>
                 </div>
 
             </td>
