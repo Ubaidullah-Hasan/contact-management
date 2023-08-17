@@ -7,7 +7,7 @@ const Home = () => {
     let totalUsers = parseInt(saveContact);
 
     useEffect(() => {
-        fetch("http://localhost:4000/contacts/count")
+        fetch("https://contact-management-server-ten.vercel.app/contacts/count")
             .then(res => res.json())
             .then(data => {
                 setSaveContact(data.totalCount)

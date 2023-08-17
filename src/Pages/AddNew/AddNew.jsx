@@ -35,7 +35,7 @@ const AddNew = () => {
                         image: imgURL,
                     }
                     console.log(info)
-                    fetch("http://localhost:4000/contacts", {
+                    fetch("https://contact-management-server-ten.vercel.app/contacts", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",

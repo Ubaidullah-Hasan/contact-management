@@ -21,7 +21,7 @@ const UpdateModal = ({ setModal, modal, contact }) => {
             category: data.category,
         }
         console.log(updateInfo)
-        fetch(`http://localhost:4000/contacts/${_id}`, {
+        fetch(`https://contact-management-server-ten.vercel.app/contacts/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
@@ -31,7 +31,7 @@ const UpdateModal = ({ setModal, modal, contact }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                if (data.modifiedCount){
+                if (data.modifiedCount) {
                     setModal(false);
                     Swal.fire(
                         'successful!',

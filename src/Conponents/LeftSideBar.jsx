@@ -21,7 +21,7 @@ const LeftSideBar = () => {
             event.preventDefault();
         }
         console.log(searchText)
-        fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
+        fetch(`https://contact-management-server-ten.vercel.app/contacts/search?query=${searchText}`)
             .then(res => res.json())
             .then(data => {
                 navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } })
@@ -32,7 +32,7 @@ const LeftSideBar = () => {
     const handleButtonClick = () => {
         handleSearch();
     };
-    
+
 
 
 
@@ -48,7 +48,7 @@ const LeftSideBar = () => {
 
             {/* menu */}
             <ul className="text-white space-y-2">
-                <li><Link to="/" className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><AiTwotoneHome  /> Home</Link></li>
+                <li><Link to="/" className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><AiTwotoneHome /> Home</Link></li>
                 <li><Link to={"/addnew"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><AiOutlineUsergroupAdd /> Add new</Link></li>
                 <li><Link to={"action"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><GiSettingsKnobs /> Action</Link></li>
                 <li><Link to={"/contactList"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><CiViewList /> Contact List</Link></li>
