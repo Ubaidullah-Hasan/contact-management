@@ -21,7 +21,7 @@ const LeftSideBar = () => {
             event.preventDefault();
         }
         console.log(searchText)
-        fetch(`https://contact-management-server-ten.vercel.app/contacts/search?query=${searchText}`)
+        fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
             .then(res => res.json())
             .then(data => {
                 navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } })

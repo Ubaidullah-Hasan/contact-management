@@ -1,6 +1,9 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { useForm, Controller } from "react-hook-form";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import Swal from 'sweetalert2'
+import "./AddNew.css"
 
 
 
@@ -8,9 +11,23 @@ const AddNew = () => {
     const imgToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
     const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imgToken}`;
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, control } = useForm();
+
+    const handleValidate = (value) => {
+        console.log(value)
+        if (!value) {
+            console.log("value nai")
+            return errors == true;
+        }
+        const isValid = isValidPhoneNumber(value);
+        console.log({ isValid });
+        return isValid;
+
+    };
+
 
     const onSubmit = (data) => {
+
         // console.log(data)
 
         const formData = new FormData();
@@ -30,12 +47,13 @@ const AddNew = () => {
                     const info = {
                         name: data.firstName + " " + data.lastName,
                         email: data.email,
-                        phone: data.number,
-                        category: data.category,
+                        phone: data.mobile,
+                        category: data.category || "individual",
                         image: imgURL,
+                        timeAt: new Date(),
                     }
                     console.log(info)
-                    fetch("https://contact-management-server-ten.vercel.app/contacts", {
+                    fetch("http://localhost:4000/contacts", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -54,20 +72,19 @@ const AddNew = () => {
                                 )
                             }
 
-                        }).catch(() => {
-                            Swal.fire({
-                                title: 'Error!',
-                                text: 'Do you want to continue',
-                                icon: 'error',
-                            })
                         })
                 }
 
+            }).catch(() => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Do you want to continue',
+                    icon: 'error',
+                })
             })
 
     };
     console.log(errors);
-
 
 
     return (
@@ -82,6 +99,7 @@ const AddNew = () => {
                             {...register("firstName", { required: true, maxLength: 80 })}
                             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
                         />
+                        {errors.firstName && <p className="text-red-500 text-sm mt-1">Please enter a name.</p>}
                     </div>
                     <div className='w-full'>
                         <label htmlFor="last-name" className="block font-medium text-gray-700">Last Name</label>
@@ -103,15 +121,29 @@ const AddNew = () => {
                             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
                             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                         />
+                        {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email.</p>}
                     </div>
                     <div className="w-full">
                         <label htmlFor="mobile-number" className="block font-medium text-gray-700">Mobile Number</label>
-                        <input
-                            type="tel"
-                            id="mobile-number"
-                            {...register("number", { required: true, minLength: 6, maxLength: 12 })}
-                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.number ? 'border-red-500' : ''}`}
+                        <Controller
+                            name="mobile"
+                            control={control}
+                            rules={{
+                                validate: (value) => handleValidate(value)
+                            }}
+                            render={({ field: { onChange, value } }) => (
+                                <PhoneInput
+                                    className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.mobile ? 'border-red-500' : ''}`}
+                                    value={value}
+                                    onChange={onChange}
+                                    defaultCountry="BD"
+                                    id="mobile-number"
+                                />
+                            )}
                         />
+                        {errors.mobile && (
+                            <p className="error-message text-red-500">Invalid Phone</p>
+                        )}
                     </div>
                 </div>
 
@@ -123,7 +155,7 @@ const AddNew = () => {
                         <input
                             type="text"
                             id="category-name"
-                            {...register("category", { required: true, maxLength: 80 })}
+                            {...register("category", { maxLength: 80 })}
                             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.category ? 'border-red-500' : ''}`}
                         />
                     </div>

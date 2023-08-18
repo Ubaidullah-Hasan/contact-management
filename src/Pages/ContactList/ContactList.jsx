@@ -17,7 +17,7 @@ const ContactList = () => {
 
 
     useEffect(() => {
-        fetch("https://contact-management-server-ten.vercel.app/contacts")
+        fetch("http://localhost:4000/contacts")
             .then(res => res.json())
             .then(data => {
                 setContacts(data);

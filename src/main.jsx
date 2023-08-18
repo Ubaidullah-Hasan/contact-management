@@ -16,6 +16,7 @@ import {
 import ContactList from './Pages/ContactList/ContactList';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Home from './Pages/Home/Home';
+import PhoneNumberValidation from './PhoneNumberValidation';
 
 const queryClient = new QueryClient()
 
@@ -47,8 +48,12 @@ const router = createBrowserRouter([
         element: <ContactList></ContactList>
       },
       {
-        path: "contacts/:name",
+        path: "/contacts/:name",
         element: <SearchPage></SearchPage>
+      },
+      {
+        path: "/phone",
+        element: <PhoneNumberValidation></PhoneNumberValidation>
       }
     ]
   },
