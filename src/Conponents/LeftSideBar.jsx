@@ -7,6 +7,7 @@ import { BsSearch } from "react-icons/bs";
 
 
 const LeftSideBar = ({ setSidebar }) => {
+    
 
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
@@ -30,7 +31,8 @@ const LeftSideBar = ({ setSidebar }) => {
             fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
                 .then(res => res.json())
                 .then(data => {
-                    navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } })
+                    navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data} });
+                    setSidebar(false);
                 })
         }
 

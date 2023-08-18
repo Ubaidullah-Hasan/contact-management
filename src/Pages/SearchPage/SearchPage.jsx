@@ -5,7 +5,6 @@ import TableRow from '../../Conponents/TableRow';
 const SearchPage = () => {
     const location = useLocation();
     const searchData = location?.state?.searchData;
-    // console.log(searchData)
     const searchText = location.search.split('=')[1];
     // console.log(searchText)
 
