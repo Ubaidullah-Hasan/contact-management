@@ -16,8 +16,8 @@ const Home = () => {
     // console.log(totalUsers)
 
     return (
-        <div className='w-[90%] mx-auto my-10'>
-            <div className="stats shadow w-full">
+        <div className='my-5 lg:my-10'>
+            <div className="lg:stats shadow-lg border-t border-gray-100 w-full grid grid-cols-2 gap-3">
 
                 <div className="stat">
                     <div className="stat-figure text-primary">
@@ -37,7 +37,7 @@ const Home = () => {
                     <div className="stat-desc">Only register users</div>
                 </div>
 
-                <div className="stat">
+                <div className="stat hidden lg:block">
                     <div className="stat-figure text-secondary">
                         <div className="avatar online">
                             <div className="w-16 rounded-full">
@@ -52,7 +52,7 @@ const Home = () => {
 
             </div>
 
-            <div className=' p-7 mt-14 bg-[#acabac] shadow-lg rounded-lg overflow-scroll lg:h-[350px]'>
+            <div className=' pt-6 px-5  lg:p-7 mt-4 lg:mt-14 bg-[#acabac] shadow-lg rounded-lg overflow-scroll lg:h-[350px]'>
                 <CategoryFilter></CategoryFilter>
             </div>
         </div>

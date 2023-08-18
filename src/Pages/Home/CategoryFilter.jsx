@@ -5,7 +5,7 @@ const CategoryFilter = () => {
     const [selectedOption, setSelectedOption] = useState('all');
     const [categories, setCategories] = useState([]);
     const [cateContacts, setCateContacts] = useState([]);
-    console.log(selectedOption)
+    // console.log(selectedOption)
 
     useEffect(() => {
         fetch("http://localhost:4000/contacts/categories")
@@ -21,7 +21,7 @@ const CategoryFilter = () => {
             })
     }, [selectedOption])
     // console.log(categories)
-    console.log(cateContacts)
+    // console.log(cateContacts)
 
     const uniqueCategories = categories.filter((category, index, self) =>
         index === self.findIndex(ct => ct.category === category.category)
@@ -32,8 +32,8 @@ const CategoryFilter = () => {
 
     return (
         <div>
-            <div className='flex items-center justify-between'>
-                <h1 className='text-4xl font-extrabold text-white capitalize'>Gorup Contacts</h1>
+            <div className='flex items-center justify-between gap-5'>
+                <h1 className='text-2xl lg:text-4xl font-extrabold text-white capitalize'>Gorup Contacts</h1>
                 <select
                     className="w-1/2 ms-auto block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300"
                     value={selectedOption}

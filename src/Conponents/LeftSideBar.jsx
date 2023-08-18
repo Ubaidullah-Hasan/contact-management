@@ -14,18 +14,27 @@ const LeftSideBar = () => {
     const handleInputChange = (e) => {
         setSearchText(e.target.value);
     };
-    console.log(searchText)
+    
 
     const handleSearch = (event) => {
+        console.log(searchText)
+        
+        if (!searchText){
+            console.log('nie')
+            return;
+        }
+
+        
         if (event) {
             event.preventDefault();
+            fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
+                .then(res => res.json())
+                .then(data => {
+                    navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } })
+                })
         }
-        console.log(searchText)
-        fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
-            .then(res => res.json())
-            .then(data => {
-                navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } })
-            })
+
+        
     };
     // console.log(contacts)
 
@@ -35,10 +44,10 @@ const LeftSideBar = () => {
 
 
 
-
+    
 
     return (
-        <div className='w-80 bg-gray-800 fixed h-full py-6 px-4 text-white'>
+        <div className=' bg-gray-800 h-full py-6 px-4 text-white'>
 
             {/* logo */}
             <div className='mb-8 '>

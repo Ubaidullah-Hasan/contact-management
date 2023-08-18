@@ -4,15 +4,19 @@ import TableRow from '../../Conponents/TableRow';
 
 const SearchPage = () => {
     const location = useLocation();
-    const searchData = location.state.searchData;
-    console.log(searchData)
-    return (
-        <div className='mx-10'>
+    const searchData = location?.state?.searchData;
+    // console.log(searchData)
+    const searchText = location.search.split('=')[1];
+    // console.log(searchText)
 
+
+    return (
+        <div className=''>
+            <h1 className='uppercase my-5 text-center text-2xl font-bold'>search result of : {searchText}</h1>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
-                    <thead>
+                    <thead className='bg-gray-800 text-white '>
                         <tr>
                             <th>Picture</th>
                             <th>Name</th>

@@ -24,10 +24,10 @@ const ContactList = () => {
             })
     }, [])
     // console.log(contacts)
-
+    // xl: mx - 10
 
     return (
-        <div className='mx-10'>
+        <div className='overflow-hidden'> 
 
             <div className='my-4 text-end'>
                 <CSVLink data={contacts} headers={headers} filename='contacts_data.csv'>
