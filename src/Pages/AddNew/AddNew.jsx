@@ -88,9 +88,10 @@ const AddNew = () => {
 
 
     return (
-        <div className='bg-gray-600 flex items-center justify-center h-screen'>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-[80%] mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-                <div className='flex mb-6 gap-8'>
+        <div className='lg:bg-gray-600 flex-col flex items-center justify-center h-screen'>
+            <h1 className="text-2xl lg:text-4xl font-bold mb-8 uppercase lg:text-white">Add new Member</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="w-[98%] lg:w-[80%] mx-auto p-6 bg-gray-200 lg:bg-gray-100 rounded-lg shadow-md">
+                <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className='w-full'>
                         <label htmlFor="first-name" className="block font-medium text-gray-700">First Name</label>
                         <input
@@ -112,7 +113,7 @@ const AddNew = () => {
                     </div>
                 </div>
 
-                <div className='mb-6 flex gap-8'>
+                <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className="w-full">
                         <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
                         <input
@@ -133,7 +134,7 @@ const AddNew = () => {
                             }}
                             render={({ field: { onChange, value } }) => (
                                 <PhoneInput
-                                    className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.mobile ? 'border-red-500' : ''}`}
+                                    className={`bg-white w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.mobile ? 'border-red-500' : ''}`}
                                     value={value}
                                     onChange={onChange}
                                     defaultCountry="BD"
@@ -149,7 +150,7 @@ const AddNew = () => {
 
 
 
-                <div className='flex mb-6 gap-8'>
+                <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className='w-full'>
                         <label htmlFor="category-name" className="block font-medium text-gray-700">Group</label>
                         <input
