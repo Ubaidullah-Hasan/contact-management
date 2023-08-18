@@ -29,7 +29,7 @@ const ContactList = () => {
     return (
         <div className='overflow-hidden'> 
 
-            <div className='my-4 text-end'>
+            <div className='my-4 mx-3 md:mx-0 text-end'>
                 <CSVLink data={contacts} headers={headers} filename='contacts_data.csv'>
                     <button className='btn btn-accent'>Export <AiOutlineCloudDownload size={22} /></button>
                 </CSVLink>

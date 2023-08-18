@@ -15,7 +15,10 @@ const MainLayout = () => {
 
                     {/* dashboard sidebar */}
                     <div>
-                        <LeftSideBar></LeftSideBar>
+                        <LeftSideBar
+                            sidebar={sidebar}
+                            setSidebar={setSidebar}
+                        ></LeftSideBar>
                     </div>
 
                     {/* dashboard content */}
@@ -31,7 +34,7 @@ const MainLayout = () => {
             <div className='md:hidden'>
                 <div className='relative'>
                     {/* dashboard sidebar */}
-                    <div className={`fixed transition-all duration-700 w-10/12 ${sidebar ? 'translate-x-[0%]' : 'translate-x-[-100%]'} z-20 top-0 left-0 h-screen`}>
+                    <div className={`fixed transition-all duration-700 w-10/12 ${sidebar ? 'translate-x-[0%]' : 'translate-x-[-100%] '} z-20 top-0 left-0 h-screen`}>
                         <LeftSideBar></LeftSideBar>
                     </div>
 
