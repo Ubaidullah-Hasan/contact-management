@@ -11,12 +11,10 @@ import Action from './Pages/Action/Action';
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query'
 import ContactList from './Pages/ContactList/ContactList';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Home from './Pages/Home/Home';
-import PhoneNumberValidation from './PhoneNumberValidation';
 
 const queryClient = new QueryClient()
 
@@ -51,10 +49,6 @@ const router = createBrowserRouter([
         path: "/contacts/:name",
         element: <SearchPage></SearchPage>
       },
-      {
-        path: "/phone",
-        element: <PhoneNumberValidation></PhoneNumberValidation>
-      }
     ]
   },
 ]);

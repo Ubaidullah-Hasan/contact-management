@@ -43,7 +43,7 @@ const AddNew = () => {
                 console.log(imgResponse)
                 if (imgResponse.success) {
                     const imgURL = imgResponse.data.display_url;
-                    console.log(imgURL);
+                    // console.log(imgURL);
                     const info = {
                         name: data.firstName + " " + data.lastName,
                         email: data.email,
@@ -52,7 +52,7 @@ const AddNew = () => {
                         image: imgURL,
                         timeAt: new Date(),
                     }
-                    console.log(info)
+                    // console.log(info)
                     fetch("http://localhost:4000/contacts", {
                         method: "POST",
                         headers: {
@@ -118,7 +118,7 @@ const AddNew = () => {
                         <input
                             type="text"
                             id="email"
-                            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                            {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
                             className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email.</p>}
