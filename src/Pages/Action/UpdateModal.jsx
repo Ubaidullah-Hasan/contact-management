@@ -55,10 +55,11 @@ const UpdateModal = ({ setModal, modal, contact }) => {
                 modal
                 &&
                 <div className='transition-all duration-500'>
-                    <div className='cus-modal z-20'>
+                    <div className='cus-modal z-10'>
+                        <h1 className="text-2xl lg:text-4xl font-bold mb-8 uppercase lg:text-white">Update Member info</h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="relative text-left w-full mx-auto p-6 bg-gray-100 text-black rounded-lg shadow-md">
                             <AiOutlineCloseCircle onClick={() => setModal(false)} size={30} className='text-black absolute right-7 top-6 cursor-pointer' />
-                            <div className='flex mt-7 mb-6 gap-8'>
+                            <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                                 <div className='w-full'>
                                     <label htmlFor="first-name" className="block font-medium text-gray-700">First Name</label>
                                     <input
@@ -81,14 +82,14 @@ const UpdateModal = ({ setModal, modal, contact }) => {
                                 </div>
                             </div>
 
-                            <div className='mb-6 flex gap-8'>
+                            <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                                 <div className="w-full">
                                     <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
                                     <input
                                         type="text"
                                         defaultValue={email}
                                         id="email"
-                                        {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+                                        {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
                                         className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                                     />
                                 </div>
@@ -107,17 +108,15 @@ const UpdateModal = ({ setModal, modal, contact }) => {
 
 
 
-                            <div className='flex gap-8'>
-                                <div className="w-full">
-                                    <label htmlFor="mobile-number" className="block font-medium text-gray-700">Mobile Number</label>
-                                    <input
-                                        type="tel"
-                                        defaultValue={phone}
-                                        id="mobile-number"
-                                        {...register("number", { required: true, minLength: 6, maxLength: 12 })}
-                                        className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.number ? 'border-red-500' : ''}`}
-                                    />
-                                </div>
+                            <div className="w-full">
+                                <label htmlFor="mobile-number" className="block font-medium text-gray-700">Mobile Number</label>
+                                <input
+                                    type="tel"
+                                    defaultValue={phone}
+                                    id="number"
+                                    {...register("number", { required: true, minLength: 6, maxLength: 12 })}
+                                    className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.number ? 'border-red-500' : ''}`}
+                                />
                             </div>
 
 
