@@ -16,8 +16,8 @@ const Home = () => {
     // console.log(totalUsers)
 
     return (
-        <div className='my-5 lg:my-10'>
-            <div className="lg:stats shadow-lg border-t border-gray-100 w-full grid grid-cols-2 gap-3">
+        <div className='lg:my-10'>
+            <div className="lg:stats shadow-lg border-t border-gray-100 w-full grid sm:grid-cols-2 gap-3">
 
                 <div className="stat">
                     <div className="stat-figure text-primary">
