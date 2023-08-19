@@ -17,7 +17,7 @@ const ContactList = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:4000/contacts")
+        fetch("https://contact-management-server-ten.vercel.app/contacts")
             .then(res => res.json())
             .then(data => {
                 setContacts(data);
@@ -27,7 +27,7 @@ const ContactList = () => {
     // xl: mx - 10
 
     return (
-        <div className='overflow-hidden'> 
+        <div className='overflow-hidden'>
 
             <div className='my-4 mx-3 md:mx-0 text-end'>
                 <CSVLink data={contacts} headers={headers} filename='contacts_data.csv'>

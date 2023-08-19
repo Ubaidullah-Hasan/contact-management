@@ -7,7 +7,7 @@ import { BsSearch } from "react-icons/bs";
 
 
 const LeftSideBar = ({ setSidebar }) => {
-    
+
 
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
@@ -15,28 +15,28 @@ const LeftSideBar = ({ setSidebar }) => {
     const handleInputChange = (e) => {
         setSearchText(e.target.value);
     };
-    
+
 
     const handleSearch = (event) => {
         console.log(searchText)
-        
-        if (!searchText){
+
+        if (!searchText) {
             console.log('nie')
             return;
         }
 
-        
+
         if (event) {
             event.preventDefault();
-            fetch(`http://localhost:4000/contacts/search?query=${searchText}`)
+            fetch(`https://contact-management-server-ten.vercel.app/contacts/search?query=${searchText}`)
                 .then(res => res.json())
                 .then(data => {
-                    navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data} });
+                    navigate(`/contacts/search?query=${searchText}`, { state: { searchData: data } });
                     setSidebar(false);
                 })
         }
 
-        
+
     };
     // console.log(contacts)
 
@@ -46,7 +46,7 @@ const LeftSideBar = ({ setSidebar }) => {
 
 
 
-    
+
 
     return (
         <div className=' bg-gray-800 h-full py-6 px-4 text-white'>

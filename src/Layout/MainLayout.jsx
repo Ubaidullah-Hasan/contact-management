@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LeftSideBar from '../Conponents/LeftSideBar';
 import { Outlet } from 'react-router-dom';
 import { BiSolidCaretLeftCircle, BiSolidCaretRightCircle, } from "react-icons/bi";
@@ -6,7 +6,24 @@ import { BiSolidCaretLeftCircle, BiSolidCaretRightCircle, } from "react-icons/bi
 
 const MainLayout = () => {
     const [sidebar, setSidebar] = useState(false);
-    console.log(sidebar)
+    // console.log(sidebar)
+
+    
+    // controlar annimation
+    const [translatex, setTranslateX] = useState('0px');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTranslateX(prevOpacity => (prevOpacity === '0px' ? '10px' : '0px'));
+        }, 500);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    
+
     return (
         <div>
 
@@ -49,12 +66,12 @@ const MainLayout = () => {
                     </div>
 
                     {/* dashboard sidebar controler */}
-                    <div className={`fixed w-10/12 bottom-10 z-10 transition-all duration-700 text-white ${sidebar ? 'translate-x-[100%]' : 'translate-x-[0%]'}`}>
+                    <div className={`fixed w-10/12 h-0 bottom-28 z-10 transition-all duration-700 text-white sidebar-icon ${sidebar ? 'translate-x-[100%]' : 'translate-x-[0%]'} `}>
                         {
                             sidebar ?
-                                <BiSolidCaretLeftCircle onClick={() => setSidebar(!sidebar)} size={60} className="rounded-e-3xl bg-[#f000b8] " />
+                                <BiSolidCaretLeftCircle onClick={() => setSidebar(!sidebar)} size={60} className={`ps-[10px] pe-[5px] rounded-e-3xl bg-[#f000b8] transition-all duration-700 shadow-xl ${translatex === '0px' ? 'translate-x-[-10px]' : 'translate-x-0'} `} />
                                 :
-                                <BiSolidCaretRightCircle onClick={() => setSidebar(!sidebar)} size={60} className="rounded-e-3xl bg-[#f000b8] " />
+                                <BiSolidCaretRightCircle onClick={() => setSidebar(!sidebar)} size={60} className={`ps-[10px] pe-[5px] rounded-e-3xl bg-[#f000b8] transition-all duration-700 shadow-xl ${translatex === '0px' ? 'translate-x-[-10px]' : 'translate-x-0'}`} />
                         }
                     </div>
 

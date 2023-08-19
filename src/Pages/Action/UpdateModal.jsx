@@ -21,7 +21,7 @@ const UpdateModal = ({ setModal, modal, contact }) => {
             category: data.category,
         }
         console.log(updateInfo)
-        fetch(`http://localhost:4000/contacts/${_id}`, {
+        fetch(`https://contact-management-server-ten.vercel.app/contacts/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",

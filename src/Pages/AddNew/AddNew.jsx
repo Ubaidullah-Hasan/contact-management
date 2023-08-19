@@ -53,7 +53,7 @@ const AddNew = () => {
                         timeAt: new Date(),
                     }
                     // console.log(info)
-                    fetch("http://localhost:4000/contacts", {
+                    fetch("https://contact-management-server-ten.vercel.app/contacts", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -88,12 +88,12 @@ const AddNew = () => {
 
 
     return (
-        <div className='lg:bg-gray-600 flex-col flex items-center justify-center h-screen'>
-            <h1 className="text-2xl lg:text-4xl font-bold mb-8 uppercase lg:text-white">Add new Member</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="w-[98%] lg:w-[80%] mx-auto p-6 bg-gray-200 lg:bg-gray-100 rounded-lg shadow-md">
+        <div className=' flex-col flex items-center justify-center h-screen'>
+            <h1 className="text-2xl lg:text-4xl font-bold mb-8 uppercase text-gray-900 border-b-2 border-opacity-100 border-black pb-3">Add new Member</h1>
+            <form onSubmit={handleSubmit(onSubmit)} className="addnew-form md:w-[98%] lg:w-[80%] mx-auto p-6 rounded-lg shadow-2xl">
                 <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className='w-full'>
-                        <label htmlFor="first-name" className="block font-medium text-gray-700">First Name</label>
+                        <label htmlFor="first-name" className="block font-medium ">First Name</label>
                         <input
                             type="text"
                             id="first-name"
@@ -103,7 +103,7 @@ const AddNew = () => {
                         {errors.firstName && <p className="text-red-500 text-sm mt-1">Please enter a name.</p>}
                     </div>
                     <div className='w-full'>
-                        <label htmlFor="last-name" className="block font-medium text-gray-700">Last Name</label>
+                        <label htmlFor="last-name" className="block font-medium ">Last Name</label>
                         <input
                             type="text"
                             id="last-name"
@@ -115,7 +115,7 @@ const AddNew = () => {
 
                 <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className="w-full">
-                        <label htmlFor="email" className="block font-medium text-gray-700">Email</label>
+                        <label htmlFor="email" className="block font-medium ">Email</label>
                         <input
                             type="text"
                             id="email"
@@ -125,7 +125,7 @@ const AddNew = () => {
                         {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email.</p>}
                     </div>
                     <div className="w-full">
-                        <label htmlFor="mobile-number" className="block font-medium text-gray-700">Mobile Number</label>
+                        <label htmlFor="mobile-number" className="block font-medium ">Mobile Number</label>
                         <Controller
                             name="mobile"
                             control={control}
@@ -152,7 +152,7 @@ const AddNew = () => {
 
                 <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className='w-full'>
-                        <label htmlFor="category-name" className="block font-medium text-gray-700">Group</label>
+                        <label htmlFor="category-name" className="block font-medium ">Group</label>
                         <input
                             type="text"
                             id="category-name"
@@ -161,7 +161,7 @@ const AddNew = () => {
                         />
                     </div>
                     <div className="w-full">
-                        <label htmlFor="file-upload" className="block font-medium text-gray-700">Add Picture</label>
+                        <label htmlFor="file-upload" className="block font-medium ">Add Picture</label>
                         <input
                             type="file"
                             id="file-upload"
