@@ -51,10 +51,10 @@ const CategoryFilter = () => {
 
             {/* table  */}
             <div className="overflow-x-auto mt-6">
-                <table className="table text-back">
+                <table className="table text-white">
                     {/* head */}
                     <thead>
-                        <tr className='text-black'>
+                        <tr className='text-white'>
                             <th>Picture</th>
                             <th>Name</th>
                             <th>Group</th>

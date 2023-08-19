@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CategoryFilter from './CategoryFilter';
+import "./home.css"
 
 const Home = () => {
     const [saveContact, setSaveContact] = useState(0);
@@ -14,6 +15,7 @@ const Home = () => {
             })
     }, [])
     // console.log(totalUsers)
+
 
     return (
         <div className='lg:my-10'>
@@ -52,7 +54,7 @@ const Home = () => {
 
             </div>
 
-            <div className=' pt-6 px-5  lg:p-7 mt-4 lg:mt-14 bg-[#acabac] shadow-lg rounded-lg overflow-scroll lg:h-[350px]'>
+            <div className=' pt-6 px-5  lg:p-7 mt-4 lg:mt-14 bg-grd shadow-lg rounded-lg overflow-scroll lg:h-[350px]'>
                 <CategoryFilter></CategoryFilter>
             </div>
         </div>
