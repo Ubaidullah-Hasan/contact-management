@@ -16,6 +16,9 @@ import ContactList from './Pages/ContactList/ContactList';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Home from './Pages/Home/Home';
 import AuthProvider from './AuthProvider.jsx/AuthProvider';
+import Login from './Pages/User/Login';
+import Register from './Pages/User/Register';
+import PasswordValidationForm from './Pages/User/PasswordValidationForm';
 
 const queryClient = new QueryClient()
 
@@ -41,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "/action",
         element: <Action></Action>
+      },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
+      {
+        path: "/register",
+        element: <Register></Register>
       },
       {
         path: "/contactList",

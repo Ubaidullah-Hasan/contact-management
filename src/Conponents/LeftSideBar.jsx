@@ -63,6 +63,7 @@ const LeftSideBar = ({ setSidebar }) => {
                 <li><Link onClick={() => setSidebar(false)} to={"/addnew"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><AiOutlineUsergroupAdd /> Add new</Link></li>
                 <li><Link onClick={() => setSidebar(false)} to={"action"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><GiSettingsKnobs /> Action</Link></li>
                 <li><Link onClick={() => setSidebar(false)} to={"/contactList"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><CiViewList /> Contact List</Link></li>
+                <li><Link onClick={() => setSidebar(false)} to={"/register"} className='flex items-center gap-3 bg-base-100 hover:bg-base-100/80 duration-100 text-base-content py-2 px-4 rounded'><CiViewList /> Register</Link></li>
             </ul>
 
             {/* search field */}
