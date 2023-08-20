@@ -15,6 +15,7 @@ import {
 import ContactList from './Pages/ContactList/ContactList';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Home from './Pages/Home/Home';
+import AuthProvider from './AuthProvider.jsx/AuthProvider';
 
 const queryClient = new QueryClient()
 
@@ -61,7 +62,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
 )
