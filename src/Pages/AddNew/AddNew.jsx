@@ -53,7 +53,7 @@ const AddNew = () => {
                         timeAt: new Date(),
                     }
                     // console.log(info)
-                    fetch("https://contact-management-server-ten.vercel.app/contacts", {
+                    fetch("http://localhost:4000/contacts", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",
@@ -84,13 +84,13 @@ const AddNew = () => {
             })
 
     };
-    console.log(errors);
+    // console.log(errors);
 
 
     return (
         <div className=' flex-col flex items-center justify-center h-screen'>
             <h1 className="text-2xl lg:text-4xl font-bold mb-8 uppercase text-gray-900 border-b-2 border-opacity-100 border-black pb-3">Add new Member</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className="addnew-form md:w-[98%] lg:w-[80%] mx-auto p-6 rounded-lg shadow-2xl">
+            <form onSubmit={handleSubmit(onSubmit)} className="addnew-form md:w-[98%] lg:w-[80%] mx-auto p-6 rounded-lg shadow-2xl ">
                 <div className='flex flex-col lg:flex-row  mb-6 gap-4 lg:gap-8'>
                     <div className='w-full'>
                         <label htmlFor="first-name" className="block font-medium ">First Name</label>
@@ -98,7 +98,7 @@ const AddNew = () => {
                             type="text"
                             id="first-name"
                             {...register("firstName", { required: true, maxLength: 80 })}
-                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
+                            className={`text-black w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.firstName ? 'border-red-500' : ''}`}
                         />
                         {errors.firstName && <p className="text-red-500 text-sm mt-1">Please enter a name.</p>}
                     </div>
@@ -108,7 +108,7 @@ const AddNew = () => {
                             type="text"
                             id="last-name"
                             {...register("lastName", { maxLength: 100 })}
-                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500`}
+                            className={`text-black w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500`}
                         />
                     </div>
                 </div>
@@ -120,7 +120,7 @@ const AddNew = () => {
                             type="text"
                             id="email"
                             {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })}
-                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
+                            className={`text-black w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.email ? 'border-red-500' : ''}`}
                         />
                         {errors.email && <p className="text-red-500 text-sm mt-1">Please enter a valid email.</p>}
                     </div>
@@ -134,7 +134,7 @@ const AddNew = () => {
                             }}
                             render={({ field: { onChange, value } }) => (
                                 <PhoneInput
-                                    className={`bg-white w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.mobile ? 'border-red-500' : ''}`}
+                                    className={`text-black bg-white  w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.mobile ? 'border-red-500' : ''}`}
                                     value={value}
                                     onChange={onChange}
                                     defaultCountry="BD"
@@ -157,7 +157,7 @@ const AddNew = () => {
                             type="text"
                             id="category-name"
                             {...register("category", { maxLength: 80 })}
-                            className={`w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.category ? 'border-red-500' : ''}`}
+                            className={`text-black w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-500 ${errors.category ? 'border-red-500' : ''}`}
                         />
                     </div>
                     <div className="w-full">
@@ -166,7 +166,7 @@ const AddNew = () => {
                             type="file"
                             id="file-upload"
                             {...register("file", { required: true })}
-                            className={`file-input h-[44px] file-input-bordered w-full mt-2 py-0 ${errors.file ? 'border-red-500' : ''}`} />
+                            className={`text-black file-input h-[44px] file-input-bordered w-full mt-2 py-0 ${errors.file ? 'border-red-500' : ''}`} />
                         {errors.file && <p className="text-red-500 text-sm mt-1">Please choose a picture.</p>}
                     </div>
                 </div>

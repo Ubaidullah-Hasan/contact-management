@@ -11,3 +11,6 @@
 .PhoneInputCountrySelectArrow{
     color: black;
 }
+.PhoneInputInput{
+    border: 1px solid #dcdcde;
+}

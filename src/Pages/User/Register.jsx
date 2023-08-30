@@ -1,46 +1,114 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { AuthContext } from '../../AuthProvider.jsx/AuthProvider';
-import PasswordValidationForm from './PasswordValidationForm';
+import './user.css'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import PasswordValidationFormWithRef from './PasswordValidationForm';
+
 
 const Register = () => {
-    const { createUserByEmail } = useContext(AuthContext);
+    const { createUserByEmail, updateUserProfile } = useContext(AuthContext);
+    const { register, handleSubmit, reset, control, formState: { errors } } = useForm();
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const navigate = useNavigate(null);
+    const location = useLocation();
+    const nextUrl = location?.state?.from;
+
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
+        const { firstName, lastName, password, email } = data;
+        const userName = firstName + ' ' + lastName;
+        console.log(firstName, lastName, userName, password, email);
+        const userInfo = {
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            email: email,
+            role: "emlpoyee",
+        }
+        createUserByEmail(email, password)
+            .then(result => {
+                console.log(result.user);
+                fetch(`http://localhost:4000/users`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        updateUserProfile(userName)
+                            .then(() => {
+                                console.log("Profile updated!")
+                                navigate(nextUrl);
+                            })
+                            .catch(err => console.log(err.message))
+                    })
+                reset();
+            })
     };
 
 
+    const inputRef = useRef(null);
+    // console.log(inputRef)
+    useEffect(() => {
+
+    }, []);
+
+
     return (
-        <div className='flex items-center justify-center lg:min-h-screen my-5 lg:my-6'>
-            <form onSubmit={handleSubmit(onSubmit)} className='bg-slate-100 text-balck w-full lg:w-1/2 p-10'>
+        <div className='register flex items-center justify-center my-5 lg:my-14'>
+            <form onSubmit={handleSubmit(onSubmit)} className='shadow-xl grid grid-cols-2 gap-x-5 text-white w-full lg:w-full rounded-lg px-10 py-14'>
+                <h1 className="col-span-2 text-2xl lg:text-4xl font-bold mb-14 uppercase border-b-2 border-opacity-100 border-white pb-3 text-center w-[200px] mx-auto">Sign UP</h1>
                 <div className="mb-4">
-                    <label htmlFor="first-name" className="block font-bold mb-1">First Name</label>
                     <input
+                        placeholder="First Name"
                         type="text"
                         {...register("firstName", { required: true, maxLength: 25 })}
-                        className={`${errors.firstName && 'border-red-500'} w-full p-2 border rounded focus:outline-none focus:ring`}
+                        className={`border-b rounded-full shadow-lg ps-6 placeholder:text-white/60 ${errors.firstName && 'border-red-500'} w-full p-2 focus:outline-none bg-transparent/10 border-t`}
                     />
+                    {errors.firstName && (
+                        <p className="text-red-500 mt-2">Missing user name.</p>
+                    )}
                 </div>
+
                 <div className="mb-4">
-                    <label htmlFor="last-name" className="block font-bold mb-1">Last Name</label>
+
                     <input
+                        placeholder="Last Name"
                         type="text"
                         {...register("lastName")}
-                        className="w-full p-2 border rounded focus:outline-none focus:ring"
+                        className="border-b rounded-full shadow-lg ps-6 placeholder:text-white/60 bg-transparent/10 border-t w-full p-2 focus:outline-none "
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="email" className="block font-bold mb-1">Email</label>
+
+                    <Controller
+                        control={control}
+                        name='password'
+                        {...register("password", {
+                            required: true,
+                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                        })}
+                        render={({ field }) => (
+                            <PasswordValidationFormWithRef ref={inputRef} errors={errors.password} passwordField={field} />
+                        )}
+                    />
+                </div>
+
+                <div className="mb-4">
+
                     <input
                         type="email"
+                        placeholder="Email"
                         {...register("email", {
                             required: true,
                             pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                         })}
-                        className={`${errors?.email && 'border-red-500'} w-full p-2 border rounded focus:outline-none focus:ring`}
+                        className={`border-b rounded-full shadow-lg ps-6 bg-transparent/10 border-t placeholder:text-white/60 ${errors?.email && 'border-red-500'} w-full p-2 focus:outline-none `}
                     />
                     {errors.email && (
                         <p className="text-red-500 mt-2">Invalid email address.</p>
@@ -49,39 +117,13 @@ const Register = () => {
                 </div>
 
 
-                <div className="mb-4">
-                    <label htmlFor="password" className="block font-bold mb-1">Password</label>
-                    <Controller
-                        name="password"
-                        control={control}
-                        rules={{ required: true }}
-                        {...register("password", {
-                            required: true,
-                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                        })}
-                        render={({ field }) => (
-                            <PasswordValidationForm errors={errors.password} passwordField={field} />
-                        )}
-                    />
-                </div>
-
-                <div className="mb-4">
-                    <label htmlFor="file" className="block font-bold mb-1">Upload Profile Picture</label>
-                    <input
-                        type="file"
-                        accept=".jpg, .jpeg, .png"
-                        {...register("file")}
-
-                        className="w-full p-2 border rounded focus:outline-none focus:ring bg-white"
-                    />
-                </div>
-
                 <button
                     type="submit"
-                    className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring"
+                    className="col-span-2 h-auto rounded-full bg-white text-black py-2 px-4 hover:bg-white/95 focus:outline-none focus:ring uppercase font-bold"
                 >
-                    Submit
+                    Register
                 </button>
+                <p className='mt-4'>Already, I have a account. <Link to={'/login'}><span className='capitalize border-b border-green-500 text-green-500 pb-1'>Please login</span></Link></p>
             </form>
         </div>
 

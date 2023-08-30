@@ -8,13 +8,13 @@ const CategoryFilter = () => {
     // console.log(selectedOption)
 
     useEffect(() => {
-        fetch("https://contact-management-server-ten.vercel.app/contacts/categories")
+        fetch("http://localhost:4000/contacts/categories")
             .then(res => res.json())
             .then(data => {
                 setCategories(data)
             })
 
-        fetch(`https://contact-management-server-ten.vercel.app/contacts/category/${selectedOption}`)
+        fetch(`http://localhost:4000/contacts/category/${selectedOption}`)
             .then(res => res.json())
             .then(data => {
                 setCateContacts(data)
@@ -24,7 +24,7 @@ const CategoryFilter = () => {
     // console.log(cateContacts)
 
     const uniqueCategories = categories.filter((category, index, self) =>
-        index === self.findIndex(ct => ct.category === category.category)
+        index === self.findIndex(ct => ct.category === category.category) // find one category only one time
     );
     // console.log(uniqueCategories);
 
@@ -35,7 +35,7 @@ const CategoryFilter = () => {
             <div className='flex items-center justify-between gap-5'>
                 <h1 className='text-2xl lg:text-4xl font-extrabold text-white capitalize'>Gorup Contacts</h1>
                 <select
-                    className="w-1/2 ms-auto block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300"
+                    className="w-1/2 ms-auto block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:border-indigo-300 capitalize"
                     value={selectedOption}
                     onChange={(e) => setSelectedOption(e.target.value)}
                 >
@@ -50,8 +50,8 @@ const CategoryFilter = () => {
             </div>
 
             {/* table  */}
-            <div className="overflow-x-auto mt-6">
-                <table className="table text-white">
+            <div className="overflow-x-auto mt-6 ">
+                <table className="table text-white ">
                     {/* head */}
                     <thead>
                         <tr className='text-white'>

@@ -19,6 +19,7 @@ import AuthProvider from './AuthProvider.jsx/AuthProvider';
 import Login from './Pages/User/Login';
 import Register from './Pages/User/Register';
 import PasswordValidationForm from './Pages/User/PasswordValidationForm';
+import PrivateRoute from './Routes/PrivateRoute';
 
 const queryClient = new QueryClient()
 
@@ -39,11 +40,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/addnew",
-        element: <AddNew></AddNew>
+        element: <PrivateRoute><AddNew></AddNew></PrivateRoute>,
       },
       {
         path: "/action",
-        element: <Action></Action>
+        element: <PrivateRoute><Action></Action></PrivateRoute>,
       },
       {
         path: "/login",

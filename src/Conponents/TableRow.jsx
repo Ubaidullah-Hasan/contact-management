@@ -15,7 +15,7 @@ const TableRow = ({ contact }) => {
 
             <td>
                 <div>
-                    <div className="font-bold">{name}</div>
+                    <div className="font-bold capitalize">{name}</div>
                 </div>
 
             </td>

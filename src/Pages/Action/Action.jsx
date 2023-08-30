@@ -6,7 +6,7 @@ const Action = () => {
     const { isLoading, refetch, data: contacts = [] } = useQuery({
         queryKey: ['carts'],
         queryFn: async () => {
-            const response = await fetch(`https://contact-management-server-ten.vercel.app/contacts`);
+            const response = await fetch(`http://localhost:4000/contacts`);
             const data = await response.json();
             return data;
         },

@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import CategoryFilter from './CategoryFilter';
-import "./home.css"
+import "./home.css";
+import avatar from "../../assets/avatar.png";
+import useUser from '../../Hooks/useUser';
+import { CiEdit } from "react-icons/ci";
+import { AiOutlineClose } from "react-icons/ai";
+import ProfileMenu from '../../Conponents/ProfileMenu';
+
 
 const Home = () => {
     const [saveContact, setSaveContact] = useState(0);
-    const [users, setUsers] = useState(0); // todo
-    let totalUsers = parseInt(saveContact);
+    const [profileNav, setProfileNav] = useState(false);
+    // console.log(profileNav);
+
+    const { user, userInfo } = useUser();
+    // console.log(userInfo);
+    // console.log(user);
+
 
     useEffect(() => {
-        fetch("https://contact-management-server-ten.vercel.app/contacts/count")
+        // Fetch total contact count
+        fetch("http://localhost:4000/count")
             .then(res => res.json())
             .then(data => {
-                setSaveContact(data.totalCount)
+                setSaveContact(data?.totalContacts);
             })
-    }, [])
-    // console.log(totalUsers)
+            .catch(error => {
+                console.error("Error fetching contact count:", error);
+            });
+    }, []);
+
+
 
 
     return (
-        <div className='lg:my-10'>
+        <div className='lg:my-10 relative'>
             <div className="lg:stats shadow-lg border-t border-gray-100 w-full grid sm:grid-cols-2 gap-3">
 
                 <div className="stat">
@@ -35,26 +51,56 @@ const Home = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
                     <div className="stat-title">Save Contacts</div>
-                    <div className="stat-value text-secondary">{totalUsers.toString().padStart(2, '0')}</div>
-                    <div className="stat-desc">Only register users</div>
+                    <div className="stat-value text-secondary">{saveContact.toString().padStart(2, '0')}</div>
+                    <div className="stat-desc">Total save contacts</div>
                 </div>
 
-                <div className="stat hidden lg:block">
-                    <div className="stat-figure text-secondary">
-                        <div className="avatar online">
-                            <div className="w-16 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+
+                <div>
+                    <div className="stat hidden lg:block text-center">
+                        <div className="relative stat-figure text-secondary">
+                            <div className={`${user ? 'avatar online' : 'avatar offline'}`}>
+                                <div className="w-10 rounded-full">
+                                    <img src={userInfo?.profileImg || avatar} /> 
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="stat-title">Total Users</div>
-                    <div className="stat-value">{0 || users}</div>
-                    <div className="stat-desc text-secondary">31 tasks remaining</div>
-                </div>
 
+                            {/* user profile edit icon */}
+                            {
+                                user &&
+                                <div onClick={() => setProfileNav(!profileNav)} className='absolute flex top-0 right-0 text-primary hover:text-black/70 cursor-pointer'>
+                                    <CiEdit size={25} />
+                                    <span className="absolute bottom-0 right-[-10px] flex h-3 w-3">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                                    </span>
+                                </div>
+                            }
+
+                        </div>
+                        <div className="text-sm font-bold uppercase"> {user?.displayName || 'unknown'} </div>
+                        <div className="stat-desc text-secondary capitalize">{userInfo.userRole || "Visitor"}</div>
+                    </div>
+                </div>
             </div>
 
-            <div className=' pt-6 px-5  lg:p-7 mt-4 lg:mt-14 bg-grd shadow-lg rounded-lg overflow-scroll lg:h-[350px]'>
+            {/* Modal laptop display */}
+            <>
+                {
+                    profileNav &&
+                    <div className='flex items-center justify-center home-modal bg-black/80 text-white shadow-md p-4 lg:py-8 lg:px-5 z-20'>
+                        <ProfileMenu setProfileNav={setProfileNav}></ProfileMenu>
+
+                        {/* modal close icon */}
+                        <AiOutlineClose size={30} className='text-white absolute z-20 top-5 right-5 cursor-pointer' onClick={() => setProfileNav(false)} />
+                    </div>
+                }
+
+            </>
+
+
+            {/* category filter */}
+            <div className=' pt-6 px-5  lg:p-7 mt-4 lg:mt-14 bg-grd shadow-lg rounded-lg overflow-scroll lg:h-[420px]'>
                 <CategoryFilter></CategoryFilter>
             </div>
         </div>
