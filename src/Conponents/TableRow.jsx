@@ -1,10 +1,19 @@
 import React from 'react';
 
-const TableRow = ({ contact }) => {
+const TableRow = ({ contact, isSelected, onSelect }) => {
     const { phone, _id, name, email, image, category } = contact;
+    console.log(isSelected);
     
     return (
         <tr>
+            <td>
+                <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={onSelect}
+                />
+            </td>
+
             <td>
                 <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">

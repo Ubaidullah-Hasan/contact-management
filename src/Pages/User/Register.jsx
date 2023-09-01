@@ -20,8 +20,7 @@ const Register = () => {
         const userName = firstName + ' ' + lastName;
         console.log(firstName, lastName, userName, password, email);
         const userInfo = {
-            firstName: firstName,
-            lastName: lastName,
+            userName: userName,
             password: password,
             email: email,
             role: "emlpoyee",

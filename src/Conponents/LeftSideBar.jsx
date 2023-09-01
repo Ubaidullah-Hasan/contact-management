@@ -18,7 +18,7 @@ const LeftSideBar = ({ setSidebar }) => {
     const { userInfo } = useUser();
     const userRule = userInfo?.userRole || 'Visitor';
     const [profileNav, setProfileNav] = useState(false);
-    const profileImg = userInfo?.profileImg ;
+    const profileImg = userInfo?.profileImg;
 
 
     const [searchText, setSearchText] = useState('');

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import TableRow from '../../Conponents/TableRow';
-import { AiOutlineCloudDownload } from 'react-icons/ai';
+import { AiOutlineCloudDownload, AiOutlineShareAlt } from 'react-icons/ai';
 import { CSVLink, CSVDownload } from "react-csv";
+import { useForm } from 'react-hook-form';
+import useUser from '../../Hooks/useUser';
+import "./ContactList.css"
+import ShareForm from './ShareForm';
 
 
 const ContactList = () => {
@@ -24,13 +28,30 @@ const ContactList = () => {
             })
     }, [])
     // console.log(contacts)
-    // xl: mx - 10
+
+
+    // do select the contacts which will be shared with person
+    const [selectedContacts, setSelectedContacts] = useState([]);
+    const handleContactSelect = (contactId) => {
+        if (selectedContacts.includes(contactId)) {
+            setSelectedContacts(selectedContacts.filter(id => id !== contactId));
+        } else {
+            setSelectedContacts([...selectedContacts, contactId]);
+        }
+    };
+    // console.log(selectedContacts);
+
+    
+
 
     return (
         <div className='overflow-hidden'>
 
-            <div className='my-4 mx-3 md:mx-0 text-end'>
-                <CSVLink data={contacts} headers={headers} filename='contacts_data.csv'>
+            <div className='mt-4 mb-10 mx-3 md:mx-0 flex items-center gap-x-5'>
+                {/* Render the ShareForm component */}
+                <ShareForm selectedContacts={selectedContacts} setSelectedContacts={setSelectedContacts} />
+
+                <CSVLink data={contacts} headers={headers} filename='contacts_data.csv' className='ms-auto'>
                     <button className='btn btn-accent'>Export <AiOutlineCloudDownload size={22} /></button>
                 </CSVLink>
             </div>
@@ -40,6 +61,7 @@ const ContactList = () => {
                     {/* head */}
                     <thead>
                         <tr>
+                            <th>Select</th>
                             <th>Picture</th>
                             <th>Name</th>
                             <th>Group</th>
@@ -53,11 +75,12 @@ const ContactList = () => {
                             contacts?.map(ct => <TableRow
                                 key={ct._id}
                                 contact={ct}
+                                isSelected={selectedContacts.includes(ct._id)}
+                                onSelect={() => handleContactSelect(ct._id)}
                             >
                             </TableRow>)
                         }
                     </tbody>
-
                 </table>
             </div>
         </div>

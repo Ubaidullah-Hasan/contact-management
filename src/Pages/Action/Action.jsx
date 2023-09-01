@@ -6,13 +6,22 @@ const Action = () => {
     const { isLoading, refetch, data: contacts = [] } = useQuery({
         queryKey: ['carts'],
         queryFn: async () => {
-            const response = await fetch(`http://localhost:4000/contacts`);
-            const data = await response.json();
-            return data;
+            try {
+                const response = await fetch(`http://localhost:4000/contacts`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                throw error;
+            }
         },
     });
 
-    // console.log(contacts);
+
+    console.log(contacts);
 
 
     return (

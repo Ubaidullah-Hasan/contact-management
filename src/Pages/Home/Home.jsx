@@ -61,7 +61,7 @@ const Home = () => {
                         <div className="relative stat-figure text-secondary">
                             <div className={`${user ? 'avatar online' : 'avatar offline'}`}>
                                 <div className="w-10 rounded-full">
-                                    <img src={userInfo?.profileImg || avatar} /> 
+                                    <img src={userInfo?.profileImg || avatar} />
                                 </div>
                             </div>
 

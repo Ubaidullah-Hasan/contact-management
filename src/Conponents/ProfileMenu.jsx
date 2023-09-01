@@ -18,7 +18,7 @@ const ProfileMenu = ({ setProfileNav }) => {
 
 
     // img bb upload Image 
-    const {user} = useUser();
+    const { user } = useUser();
     const handleUpload = () => {
         const apiKey = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
         const imgbbURL = `https://api.imgbb.com/1/upload?key=${apiKey}`;
@@ -31,28 +31,28 @@ const ProfileMenu = ({ setProfileNav }) => {
             method: 'POST',
             body: formData,
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.success) {
-                console.log('image successfully uploaded', data.data.display_url);
-                fetch(`http://localhost:4000/users/${user?.email}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        image: data.data.display_url
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    console.log('image successfully uploaded', data.data.display_url);
+                    fetch(`http://localhost:4000/users/${user?.email}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            image: data.data.display_url
+                        })
                     })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    setProfileNav(false);
-                })
-                
-            }
-        })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data)
+                            setProfileNav(false);
+                        })
+
+                }
+            })
 
     }
 
@@ -72,7 +72,7 @@ const ProfileMenu = ({ setProfileNav }) => {
                     onChange={handleImgChange}
                     className="w-full hidden"
                 />
-                {img ? '' : <h3 className='font-medium text-gray-900 capitalize'>Choose Profile Picture</h3> }
+                {img ? '' : <h3 className='font-medium text-gray-900 capitalize'>Choose Profile Picture</h3>}
             </div>
             {
                 img && <p className='text-black mt-3'>{img.name.slice(0, 30)} {img.name.length > 30 && '_..._ .'} {img.name.length > 30 && img.name.split('.')[img.name.split('.').length - 1]}</p>
